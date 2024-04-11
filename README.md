@@ -1,14 +1,25 @@
 # linux-LEMP-ubuntu-22
 quick setup for a linux vm running php 7.4, nginx, mysql and wordpress
 
-### quick run
+### installation
+- after hitting enter, type your password and hit enter again to grant sudo privileges
+  (the prompt gets lost in the scrolls)
 ```
 wget -O - https://raw.githubusercontent.com/icarus-gg/linux-LEMP-ubuntu-22/main/ubuntu-22-lemp.sh | sudo bash
 ```
 
 ### resetting wsl2 ubuntu:
-- run powershell with admin privileges
+- start > Ubu -> right click and `Uninstall` > confirm
+- open microsoft store, if on searching `Ubuntu` shows `Installed`, close and reopen again until it shows `Install` on hover
+- if it hasn't shown `Install` on hover, re-do step 1
+- if you get an `Error code: Wsl/Service/CreateInstance/MountVhd/HCS/ERROR_FILE_NOT_FOUND`...
+- open Powershell as admin
 ```
-wsl --unregister ubuntu
-wsl --install
+wsl -l -v
+// look for `Ubuntu-XX.XX`
+wsl --unregister Ubuntu-XX.XX`
 ```
+- make sure your `Start` > `Ubu` doesn't return any results to Ubuntu XX app
+  - if it does, right click it and select `Uninstall` and reclick the start menu until it disappears.
+- reopen microsoft store and search `Ubuntu`
+- click `Install` on Ubuntu XX -> (note it may still show `Owned` but when you hover over it should show `Install`)
