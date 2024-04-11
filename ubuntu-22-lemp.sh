@@ -84,9 +84,23 @@ sudo ln -s /etc/nginx/sites-available/dev.local.conf /etc/nginx/sites-enabled/
 sudo service nginx restart
 
 # Display instructions to initialize WordPress
-echo "Gartril, dwarven engineer:"
-echo "  Please open http://dev.local in your browser to complete WordPress setup."
+echo "You are surrounded by darkness..." 
+echo "    you hold onto the only light that has and will forever guide you through the chaos, your soul."
+echo "  Lightning strikes and for a few seconds you manage to catch a glimpse of a damp wooden sign-"
+echo "    it has carvings etched into it, it reads:"
+echo "--------------------------------------------"
+echo " ||           http://dev.local            ||"
+echo "--------------------------------------------"
+echo "You're reminded of Gartril, a dwarven engineer..."
+echo "  betrayed by friends and kin alike, mistaken for a monster,"
+echo "  and true forever to his naive soul--"
+echo "  "
+echo " he used to make good pancakes."
+echo "   and will forever be--"
 echo " "
+echo "  ONE MAN"
+echo "  ALONE..."
+echo "  BETRAYED BY THE COUNTRIES HE LOVES"
 echo "            _____  .__        .__        ";
 echo "           /     \ |__| _____ |__| ____  ";
 echo "  ______  /  \ /  \|  |/     \|  |/ ___\ ";
