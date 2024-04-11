@@ -84,5 +84,12 @@ sudo ln -s /etc/nginx/sites-available/dev.local.conf /etc/nginx/sites-enabled/
 sudo service nginx restart
 
 # Display instructions to initialize WordPress
-echo "Please open http://dev.local in your browser to complete WordPress setup. -gartril the dwarven engineer"
-
+echo "Gartril, dwarven engineer:"
+echo "  Please open http://dev.local in your browser to complete WordPress setup."
+echo " "
+echo "            _____  .__        .__        ";
+echo "           /     \ |__| _____ |__| ____  ";
+echo "  ______  /  \ /  \|  |/     \|  |/ ___\ ";
+echo " /_____/ /    Y    \  |  Y Y  \  \  \___ ";
+echo "         \____|__  /__|__|_|  /__|\___  >";
+echo "                 \/         \/        \/ ";
