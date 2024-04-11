@@ -86,10 +86,9 @@ sudo service nginx restart
 # Display instructions to initialize WordPress
 echo "--------------------------------------------"
 echo "--------------------------------------------"
-echo " ||          Welcome Adventurer          || "
+echo " ||   You are surrounded by darkness...  || "
 echo "--------------------------------------------"
 echo "--------------------------------------------"
-echo "You are surrounded by darkness..." 
 echo "    you hold onto the only light that has and will forever guide you through the chaos, your soul."
 echo "  Lightning strikes and for a few seconds you manage to catch a glimpse of a damp wooden sign-"
 echo "    it has carvings etched into it, it reads:"
