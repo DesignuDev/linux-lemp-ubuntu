@@ -59,7 +59,7 @@ server {
     error_log /var/log/nginx/dev.local-error.log;
 
     server_name dev.local www.dev.local;
-    root /var/www/dev/wordpress;
+    root /var/www/dev.local/wordpress;
     index index.php index.html index.htm;
 
     location / {

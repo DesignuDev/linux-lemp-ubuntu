@@ -5,3 +5,10 @@ quick setup for a linux vm running php 7.4, nginx, mysql and wordpress
 ```
 wget -O - https://raw.githubusercontent.com/icarus-gg/linux-LEMP-ubuntu-22/main/ubuntu-22-lemp.sh | sudo bash
 ```
+
+### resetting wsl2 ubuntu:
+- run powershell with admin privileges
+```
+wsl --unregister ubuntu
+wsl --install
+```
