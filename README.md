@@ -13,11 +13,19 @@ WSL2 manual, .sh script, && docker-compose setups for a linux vm running php 7.4
 - that will take a bit to load and then you will be able to modify all files and have immediate updates to the wordpress site(s)
 
 ## WSL2
+
+### installation of LEMP without wordpress:
+- after hitting enter, type your password and hit enter again to grant sudo privileges
+  (the prompt gets lost in the scrolls)
+```
+wget -O - https://raw.githubusercontent.com/icarus-gg/linux-LEMP-ubuntu-22/seperate-bash-files/ubuntu-22-lemp.sh | sudo bash
+```
+
 ### installation
 - after hitting enter, type your password and hit enter again to grant sudo privileges
   (the prompt gets lost in the scrolls)
 ```
-wget -O - https://raw.githubusercontent.com/icarus-gg/linux-LEMP-ubuntu-22/main/ubuntu-22-lemp.sh | sudo bash
+wget -O - https://raw.githubusercontent.com/icarus-gg/linux-LEMP-ubuntu-22/seperate-bash-files/ubuntu-22-lemp-wordpress.sh | sudo bash
 ```
 
 ### resetting wsl2 ubuntu:
