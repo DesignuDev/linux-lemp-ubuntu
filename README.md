@@ -23,7 +23,7 @@ WSL2 manual, .sh script, && docker-compose setups for a linux vm running php 7.4
 ### Installing LEMP:
 - After hitting enter, type your password and hit enter again to grant sudo privileges (the prompt gets lost in the scrolls)
 ```
-wget -O - https://raw.githubusercontent.com/icarus-gg/linux-LEMP-ubuntu-22/seperate-bash-files/ubuntu-22-lemp.sh | sudo bash
+wget -O - https://raw.githubusercontent.com/DesignuDev/linux-LEMP-ubuntu-22/main/ubuntu-22-lemp.sh | sudo bash
 ```
 
 ### Installing Wordpress (Not needed if you already have a wordpress site)
