@@ -11,15 +11,14 @@ sudo apt -y install php7.4-fpm
 
 # Disable Apache2
 sudo update-rc.d apache2 disable
-sudo service apache2 stop
+sudo systemctl stop apache2
 
 # Install Nginx
 sudo apt update
 sudo apt -y install nginx
 
 # Ensure Nginx is working
-sudo sed -i 's/index index\.html index\.htm index\.nginx-debian.html;/index index.php index.nginx-debian.html;/' /etc/nginx/sites-enabled/default
-sudo service nginx restart
+#sudo sed -i 's/index index\.html index\.htm index\.nginx-debian.html;/index index.php index.nginx-debian.html;/' /etc/nginx/sites-enabled/default
 
 # Install MySQL
 sudo apt install -y mysql-server
@@ -27,11 +26,19 @@ sudo apt install -y mysql-server
 # Create MySQL Database and User
 sudo mysql -e "CREATE DATABASE IF NOT EXISTS dev;"
 sudo mysql -e "CREATE USER 'dev'@'localhost' IDENTIFIED BY 'password';"
-sudo mysql -e "GRANT ALL PRIVILEGES ON dev.* TO 'dev'@'localhost' WITH GRANT OPTION;"
+sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost' WITH GRANT OPTION;"
 
 # Update directory group recursively
 sudo chown www-data:www-data -R /var/www/
 
+# Setup user directory with correct permissions
+sudo chmod -R 755 ~
+
+# Update the user that nginx and php runs as
+USERNAME=$(whoami)
+sudo sed -i "s/^user .*;/user $USERNAME;/" /etc/nginx/nginx.conf
+sudo sed -i "s/^user = .*/user = $USERNAME/" /etc/php/7.4/fpm/pool.d/www.conf
+sudo sed -i "s/^group = .*/group = $USERNAME/" /etc/php/7.4/fpm/pool.d/www.conf
 
 # Move the default file to sites-available instead of sites-enabled
 sudo mv /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
@@ -55,7 +62,7 @@ server {
     error_log /var/log/nginx/dev.mysite-error.log;
 
     server_name dev.mysite www.dev.mysite;
-    root /var/www/dev.mysite;
+    root /home/<USER>/sites/dev.mysite;
     index index.php index.html index.htm;
 
     location / {
@@ -74,7 +81,8 @@ server {
 EOF
 
 # Restart Nginx
-sudo service nginx restart
+sudo systemctl restart nginx
+sudo systemctl restart php7.4-fpm
 
 # Display instructions to initialize WordPress
 echo "--------------------------------------------"
