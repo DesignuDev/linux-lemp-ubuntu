@@ -29,37 +29,33 @@ sudo mysql -e "CREATE DATABASE IF NOT EXISTS dev;"
 sudo mysql -e "CREATE USER 'dev'@'localhost' IDENTIFIED BY 'password';"
 sudo mysql -e "GRANT ALL PRIVILEGES ON dev.* TO 'dev'@'localhost' WITH GRANT OPTION;"
 
-# Install WordPress
-sudo mkdir /var/www/dev.local
-cd /var/www/dev.local
-sudo wget https://wordpress.org/latest.tar.gz
-sudo tar -xzvf latest.tar.gz
-sudo rm latest.tar.gz
-cd wordpress
-
-# Configure WordPress database connection
-sudo cp wp-config-sample.php wp-config.php
-sudo sed -i "s/database_name_here/dev/" wp-config.php
-sudo sed -i "s/username_here/dev/" wp-config.php
-sudo sed -i "s/password_here/password/" wp-config.php
-
 # Update directory group recursively
-sudo chown www-data:www-data -R /var/www/dev.local
+sudo chown www-data:www-data -R /var/www/
+
+
+# Move the default file to sites-available instead of sites-enabled
+sudo mv /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 
 # Add shared upstream to handle PHP files in the Nginx configuration file
-sudo sed -i '1i upstream dev-php-handler {\n    server unix:/var/run/php/php7.4-fpm.sock;\n}' /etc/nginx/sites-enabled/default
+sudo sed -i '1i upstream dev-php-handler {\n    server unix:/var/run/php/php7.4-fpm.sock;\n}' /etc/nginx/sites-available/default
+
+# Replace sites enabled to sites available so we only have to make one config
+sudo sed -i 's|include /etc/nginx/sites-enabled/\*;|include /etc/nginx/sites-available/\*;|' /etc/nginx/nginx.conf
+
+# Remove the sites-enabled folder
+sudo rmdir /etc/nginx/sites-enabled
 
 # Create custom Nginx configuration
-sudo tee /etc/nginx/sites-available/dev.local.conf > /dev/null <<'EOF'
+sudo tee /etc/nginx/sites-available/dev.mysite.conf > /dev/null <<'EOF'
 
 server {
     listen 80;
 
-    access_log /var/log/nginx/dev.local-access.log;
-    error_log /var/log/nginx/dev.local-error.log;
+    access_log /var/log/nginx/dev.mysite-access.log;
+    error_log /var/log/nginx/dev.mysite-error.log;
 
-    server_name dev.local www.dev.local;
-    root /var/www/dev.local/wordpress;
+    server_name dev.mysite www.dev.mysite;
+    root /var/www/dev.mysite;
     index index.php index.html index.htm;
 
     location / {
@@ -76,9 +72,6 @@ server {
     }
 }
 EOF
-
-# Symlink site to sites-enabled
-sudo ln -s /etc/nginx/sites-available/dev.local.conf /etc/nginx/sites-enabled/
 
 # Restart Nginx
 sudo service nginx restart

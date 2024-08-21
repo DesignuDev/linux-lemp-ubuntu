@@ -13,24 +13,29 @@ WSL2 manual, .sh script, && docker-compose setups for a linux vm running php 7.4
 - that will take a bit to load and then you will be able to modify all files and have immediate updates to the wordpress site(s)
 
 ## WSL2
-### installation
-- after hitting enter, type your password and hit enter again to grant sudo privileges
-  (the prompt gets lost in the scrolls)
+
+### Installing WSL2 Ubuntu
+- Open PowerShell as Admin.
+- Type `wsl --install Ubuntu`.
+- Wait for install, enter username and password.
+- Done.
+
+### Installing LEMP:
+- After hitting enter, type your password and hit enter again to grant sudo privileges (the prompt gets lost in the scrolls)
 ```
-wget -O - https://raw.githubusercontent.com/icarus-gg/linux-LEMP-ubuntu-22/main/ubuntu-22-lemp.sh | sudo bash
+wget -O - https://raw.githubusercontent.com/icarus-gg/linux-LEMP-ubuntu-22/seperate-bash-files/ubuntu-22-lemp.sh | sudo bash
 ```
 
-### resetting wsl2 ubuntu:
-- start > Ubu -> right click and `Uninstall` > confirm
-- open microsoft store 
-  - if on searching `Ubuntu` shows `Installed`, close and reopen again until it shows `Install` on hover
-- open Powershell as admin
+### Installing Wordpress (Not needed if you already have a wordpress site)
+- After hitting enter, type your password and hit enter again to grant sudo privileges (the prompt gets lost in the scrolls)
 ```
-wsl -l -v
-// look for `Ubuntu-XX.XX`
-wsl --unregister Ubuntu-XX.XX`
+wget -O - https://raw.githubusercontent.com/icarus-gg/linux-LEMP-ubuntu-22/seperate-bash-files/ubuntu-22-lemp-wordpress.sh | sudo bash
 ```
-- re-check your `Start` > `Ubu` doesn't return any results to `Ubuntu XX` app
-  - if it does, right click it and select `Uninstall` and reclick the start menu until it disappears.
-- reopen microsoft store and search `Ubuntu`
-- click `Install` on Ubuntu XX -> (note it may still show `Owned` but when you hover over it should show `Install`)
+
+### Resetting WSL2 Ubuntu:
+- Open PowerShell as Admin.
+- Type `wsl --list` it should list your Distro as an installed distribution.
+- Type `wsl --unregister Ubuntu` (if you have another Linux Distro change `Ubuntu` to whichever Distro you have).
+- Type `wsl --install Ubuntu`.
+- Wait for install, enter username and password.
+- Done.
