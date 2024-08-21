@@ -33,6 +33,8 @@ sudo chown www-data:www-data -R /var/www/
 # Setup user directory with correct permissions
 sudo chmod -R 755 ~
 
+mkdir ~/sites/
+
 # Update the user that nginx and php runs as
 USERNAME=$SUDO_USER
 sudo sed -i "s/^user .*;/user $USERNAME;/" /etc/nginx/nginx.conf
