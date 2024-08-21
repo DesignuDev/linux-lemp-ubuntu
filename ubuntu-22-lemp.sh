@@ -34,7 +34,7 @@ sudo chown www-data:www-data -R /var/www/
 sudo chmod -R 755 ~
 
 # Update the user that nginx and php runs as
-USERNAME=$(whoami)
+USERNAME=${SUDO_USER:-$(whoami)}
 sudo sed -i "s/^user .*;/user $USERNAME;/" /etc/nginx/nginx.conf
 sudo sed -i "s/^user = .*/user = $USERNAME/" /etc/php/8.2/fpm/pool.d/www.conf
 sudo sed -i "s/^group = .*/group = $USERNAME/" /etc/php/8.2/fpm/pool.d/www.conf
