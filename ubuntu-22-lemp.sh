@@ -4,8 +4,8 @@
 sudo dpkg -l | grep php | tee packages.txt
 sudo add-apt-repository ppa:ondrej/php # Press enter when prompted.
 sudo apt update
-sudo apt install php8.2 php8.2-cli php8.2-{bz2,curl,mbstring,intl}
-sudo apt install php8.2-fpm
+sudo apt -y install php8.2 php8.2-cli php8.2-{bz2,curl,mbstring,intl}
+sudo apt -y install php8.2-fpm
 sudo a2enconf php8.2-fpm
 
 # Disable Apache2
