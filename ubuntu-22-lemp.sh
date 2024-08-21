@@ -4,7 +4,7 @@
 sudo dpkg -l | grep php | tee packages.txt
 sudo add-apt-repository ppa:ondrej/php # Press enter when prompted.
 sudo apt update
-sudo apt -y install php8.2 php8.2-cli php8.2-{bz2,curl,mbstring,intl}
+sudo apt -y install php8.2 php8.2-cli php8.2-{bz2,curl,mbstring,intl,mysqli}
 sudo apt -y install php8.2-fpm
 sudo a2enconf php8.2-fpm
 
@@ -17,7 +17,7 @@ sudo apt update
 sudo apt -y install nginx
 
 # Ensure Nginx is working
-#sudo sed -i 's/index index\.html index\.htm index\.nginx-debian.html;/index index.php index.nginx-debian.html;/' /etc/nginx/sites-enabled/default
+sudo sed -i 's/index index\.html index\.htm index\.nginx-debian.html;/index index.php index.nginx-debian.html;/' /etc/nginx/sites-enabled/default
 
 # Install MySQL
 sudo apt install -y mysql-server
@@ -33,6 +33,7 @@ sudo chown www-data:www-data -R /var/www/
 # Setup user directory with correct permissions
 sudo chmod -R 755 ~
 
+# Make Sites directory
 mkdir ~/sites/
 
 # Update the user that nginx and php runs as
@@ -41,11 +42,14 @@ sudo sed -i "s/^user .*;/user $USERNAME;/" /etc/nginx/nginx.conf
 sudo sed -i "s/^user = .*/user = $USERNAME/" /etc/php/8.2/fpm/pool.d/www.conf
 sudo sed -i "s/^group = .*/group = $USERNAME/" /etc/php/8.2/fpm/pool.d/www.conf
 
+#Add User to www-data group
+sudo usermod -aG www-data $USERNAME
+
 # Move the default file to sites-available instead of sites-enabled
 sudo mv /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 
 # Add shared upstream to handle PHP files in the Nginx configuration file
-sudo sed -i '1i upstream dev-php-handler {\n    server unix:/var/run/php/php7.4-fpm.sock;\n}' /etc/nginx/sites-available/default
+sudo sed -i '1i upstream dev-php-handler {\n    server unix:/var/run/php/php8.2-fpm.sock;\n}' /etc/nginx/sites-available/default
 
 # Replace sites enabled to sites available so we only have to make one config
 sudo sed -i 's|include /etc/nginx/sites-enabled/\*;|include /etc/nginx/sites-available/\*;|' /etc/nginx/nginx.conf
