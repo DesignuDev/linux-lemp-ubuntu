@@ -67,7 +67,7 @@ server {
     error_log /var/log/nginx/dev.mysite-error.log;
 
     server_name dev.mysite www.dev.mysite;
-    root /home/<USER>/sites/dev.mysite;
+    root /home/$USERNAME/sites/dev.mysite;
     index index.php index.html index.htm;
 
     location / {
