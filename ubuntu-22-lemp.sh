@@ -58,7 +58,7 @@ sudo sed -i 's|include /etc/nginx/sites-enabled/\*;|include /etc/nginx/sites-ava
 sudo rm -R /etc/nginx/sites-enabled/
 
 # Create custom Nginx configuration
-sudo tee /etc/nginx/sites-available/dev.mysite.conf > /dev/null <<'EOF'
+sudo -E bash -c "cat > /etc/nginx/sites-available/dev.mysite.conf" <<EOF
 
 server {
     listen 80;
