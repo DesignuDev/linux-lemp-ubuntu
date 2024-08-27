@@ -40,7 +40,7 @@ sudo sed -i "s/^user = .*/user = $USERNAME/" /etc/php/8.2/fpm/pool.d/www.conf
 sudo sed -i "s/^group = .*/group = $USERNAME/" /etc/php/8.2/fpm/pool.d/www.conf
 
 # Make Sites directory
-mkdir $USERNAME/sites/
+mkdir /$USERNAME/sites/
 
 #Add User to www-data group
 sudo usermod -aG www-data $USERNAME
