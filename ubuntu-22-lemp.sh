@@ -91,32 +91,4 @@ sudo systemctl restart php8.2-fpm
 
 # Log complete
 echo "Script Complete"
-
-# Display instructions to initialize WordPress
-#echo "--------------------------------------------"
-#echo "--------------------------------------------"
-#echo " ||   You are surrounded by darkness...  || "
-#echo "--------------------------------------------"
-#echo "--------------------------------------------"
-#echo "    you hold onto the only light that has and will forever guide you through the chaos, your soul."
-#echo "  Lightning strikes and for a few seconds you manage to catch a glimpse of a damp wooden sign-"
-#echo "    it has carvings etched into it, it reads:"
-#echo "--------------------------------------------"
-#echo " ||           http://dev.local            ||"
-#echo "--------------------------------------------"
-#echo "You're reminded of Gartril, a dwarven engineer..."
-#echo "  betrayed by friends and kin alike, mistaken for a monster,"
-#echo "  and true forever to his naive soul--"
-#echo "  "
-#echo " he used to make good pancakes."
-#echo "   and will forever be--"
-#echo " "
-#echo "  ONE MAN"
-#echo "  ALONE..."
-#echo "  BETRAYED BY THE COUNTRIES HE LOVES"
-#echo "            _____  .__        .__        ";
-#echo "           /     \ |__| _____ |__| ____  ";
-#echo "  ______  /  \ /  \|  |/     \|  |/ ___\ ";
-#echo " /_____/ /    Y    \  |  Y Y  \  \  \___ ";
-#echo "         \____|__  /__|__|_|  /__|\___  >";
-#echo "                 \/         \/        \/ ";
+echo "Original script by Mimic"
