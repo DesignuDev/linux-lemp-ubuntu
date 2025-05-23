@@ -11,7 +11,7 @@ wget -O - https://raw.githubusercontent.com/DesignuDev/linux-LEMP-ubuntu-22/main
 
 ### Installing the latest version of WordPress in the current directory
 ```
-wget -O - https://raw.githubusercontent.com/DesignuDev/linux-LEMP-ubuntu-22/refs/heads/main/ubuntu-22-lemp-wordpress.sh | sudo bash
+wget -O - https://raw.githubusercontent.com/DesignuDev/linux-LEMP-ubuntu-22/refs/heads/main/ubuntu-22-lemp-wordpress.sh | bash
 ```
 
 ## WSL2
