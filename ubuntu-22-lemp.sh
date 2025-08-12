@@ -37,6 +37,7 @@ sudo sed -i "s|^group = .*|group = $USERNAME|" /etc/php/8.4/fpm/pool.d/www.conf
 
 # Make Sites directory
 mkdir -p /home/$USERNAME/sites/
+sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/sites/
 
 # Add User to www-data group
 sudo usermod -aG www-data $USERNAME
@@ -92,6 +93,11 @@ sudo nginx -t
 sudo systemctl restart nginx
 sudo systemctl enable --now php8.4-fpm
 sudo systemctl restart php8.4-fpm
+
+# Removing the random packages file that gets created
+if [ -f /home/$USERNAME/packages.txt ]; then
+    sudo rm /home/$USERNAME/packages.txt
+fi
 
 # Log complete
 echo "Script Complete (PHP 8.4)"
