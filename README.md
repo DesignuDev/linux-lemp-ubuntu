@@ -1,12 +1,12 @@
 # Linux LEMP Ubuntu-22.04
-WSL2 manual .sh script a Linux VM running PHP 8.2, Nginx, MySQL and WordPress
+WSL2 manual .sh script a Linux VM running PHP 8.4, Nginx, MySQL and WordPress
 
 ## LEMP
 
 ### Installing LEMP
 - After hitting enter, type your password and hit enter again to grant sudo privileges (the prompt gets lost in the scrolls)
 ```
-wget -O - https://raw.githubusercontent.com/DesignuDev/linux-LEMP-ubuntu-22/main/ubuntu-22-lemp.sh | sudo bash
+wget -O - https://raw.githubusercontent.com/DesignuDev/linux-lemp-ubuntu-24-lts/refs/heads/main/setup.sh | sudo bash
 ```
 
 ### Installing the latest version of WordPress in the current directory
