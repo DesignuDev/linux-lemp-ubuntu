@@ -1,4 +1,4 @@
-# Linux LEMP Ubuntu-22.04
+# Linux LEMP Ubuntu 24 LTS
 WSL2 manual .sh script a Linux VM running PHP 8.4, Nginx, MySQL and WordPress
 
 ## LEMP
@@ -11,7 +11,7 @@ wget -O - https://raw.githubusercontent.com/DesignuDev/linux-lemp-ubuntu-24-lts/
 
 ### Installing the latest version of WordPress in the current directory
 ```
-wget -O - https://raw.githubusercontent.com/DesignuDev/linux-LEMP-ubuntu-22/refs/heads/main/ubuntu-22-lemp-wordpress.sh | bash
+wget -O - https://raw.githubusercontent.com/DesignuDev/linux-lemp-ubuntu/refs/heads/main/setup-wordpress.sh | bash
 ```
 
 ## WSL2
