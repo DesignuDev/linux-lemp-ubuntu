@@ -1,16 +1,15 @@
 #!/bin/bash
 
-# Install PHP
+# Install PHP 8.4 (Ondřej PPA)
 sudo dpkg -l | grep php | tee packages.txt
-sudo add-apt-repository ppa:ondrej/php # Press enter when prompted.
+sudo add-apt-repository -y ppa:ondrej/php
 sudo apt update
-sudo apt -y install php8.2 php8.2-cli php8.2-{bz2,curl,mbstring,intl,mysqli}
-sudo apt -y install php8.2-fpm
-sudo a2enconf php8.2-fpm
+sudo apt -y install php8.4 php8.4-cli php8.4-{bz2,curl,mbstring,intl,mysql,xml,zip,gd}
+sudo apt -y install php8.4-fpm
 
 # Disable Apache2
-sudo update-rc.d apache2 disable
-sudo systemctl stop apache2
+sudo update-rc.d apache2 disable || true
+sudo systemctl stop apache2 || true
 
 # Install Nginx
 sudo apt update
@@ -27,38 +26,41 @@ sudo mysql -e "CREATE DATABASE IF NOT EXISTS dev;"
 sudo mysql -e "CREATE USER 'dev'@'localhost' IDENTIFIED BY 'password';"
 sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost' WITH GRANT OPTION;"
 
-# Update directory group recursively
-sudo chown www-data:www-data -R /var/www/
-
 # Setup user directory with correct permissions
 sudo chmod -R 755 ~
 
 # Update the user that nginx and php runs as
 USERNAME=$SUDO_USER
 sudo sed -i "s/^user .*;/user $USERNAME;/" /etc/nginx/nginx.conf
-sudo sed -i "s/^user = .*/user = $USERNAME/" /etc/php/8.2/fpm/pool.d/www.conf
-sudo sed -i "s/^group = .*/group = $USERNAME/" /etc/php/8.2/fpm/pool.d/www.conf
+sudo sed -i "s|^user = .*|user = $USERNAME|" /etc/php/8.4/fpm/pool.d/www.conf
+sudo sed -i "s|^group = .*|group = $USERNAME|" /etc/php/8.4/fpm/pool.d/www.conf
 
 # Make Sites directory
-mkdir /home/$USERNAME/sites/
+mkdir -p /home/$USERNAME/sites/
 
-#Add User to www-data group
+# Add User to www-data group
 sudo usermod -aG www-data $USERNAME
 
 # Move the default file to sites-available instead of sites-enabled
-sudo mv /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
+if [ -e /etc/nginx/sites-enabled/default ]; then
+  sudo mv /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
+fi
 
-# Add shared upstream to handle PHP files in the Nginx configuration file
-sudo sed -i '1i upstream dev-php-handler {\n    server unix:/var/run/php/php8.2-fpm.sock;\n}' /etc/nginx/sites-available/default
+# Add shared upstream to handle PHP files in the Nginx configuration file (PHP 8.4 socket)
+if ! grep -q "upstream dev-php-handler" /etc/nginx/sites-available/default; then
+  sudo sed -i '1i upstream dev-php-handler {\n    server unix:/var/run/php/php8.4-fpm.sock;\n}' /etc/nginx/sites-available/default
+else
+  sudo sed -i 's|unix:/var/run/php/php8\.2-fpm\.sock|unix:/var/run/php/php8\.4-fpm\.sock|' /etc/nginx/sites-available/default
+fi
 
-# Replace sites enabled to sites available so we only have to make one config
+# Replace sites-enabled include with sites-available in nginx.conf
 sudo sed -i 's|include /etc/nginx/sites-enabled/\*;|include /etc/nginx/sites-available/\*;|' /etc/nginx/nginx.conf
 
 # Remove the sites-enabled folder
-sudo rm -R /etc/nginx/sites-enabled/
+sudo rm -rf /etc/nginx/sites-enabled/
 
 # Create custom Nginx configuration
-sudo -E bash -c "cat > /etc/nginx/sites-available/dev.mysite.conf" <<EOF
+sudo -E bash -c "cat > /etc/nginx/sites-available/dev.mysite" <<EOF
 
 server {
     listen 80;
@@ -85,10 +87,12 @@ server {
 }
 EOF
 
-# Restart Nginx
+# Test Nginx config, restart services
+sudo nginx -t
 sudo systemctl restart nginx
-sudo systemctl restart php8.2-fpm
+sudo systemctl enable --now php8.4-fpm
+sudo systemctl restart php8.4-fpm
 
 # Log complete
-echo "Script Complete"
+echo "Script Complete (PHP 8.4)"
 echo "Original script by Mimic"
