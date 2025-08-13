@@ -61,20 +61,19 @@ sudo sed -i 's|include /etc/nginx/sites-enabled/\*;|include /etc/nginx/sites-ava
 sudo rm -rf /etc/nginx/sites-enabled/
 
 # Create custom Nginx configuration
-sudo -E bash -c "cat > /etc/nginx/sites-available/dev.mysite" <<EOF
-
+sudo tee /etc/nginx/sites-available/dev.example >/dev/null <<EOF
 server {
     listen 80;
 
-    access_log /var/log/nginx/dev.mysite-access.log;
-    error_log /var/log/nginx/dev.mysite-error.log;
+    access_log /var/log/nginx/dev.example-access.log;
+    error_log /var/log/nginx/dev.example-error.log;
 
-    server_name dev.mysite www.dev.mysite;
-    root /home/$USERNAME/sites/dev.mysite;
+    server_name dev.example www.dev.example;
+    root /home/${USERNAME}/sites/example;
     index index.php index.html index.htm;
 
     location / {
-        try_files $uri $uri/ /index.php?$args;
+        try_files \$uri \$uri/ /index.php?\$args;
     }
 
     location ~ \.php$ {
