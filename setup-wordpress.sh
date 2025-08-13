@@ -24,7 +24,7 @@ DB_USER="dev"
 DB_PASS="password"
 
 sudo mysql -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;"
-sudo mysql -e "GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASS}';"
+sudo mysql -e "GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '${DB_USER}'@'localhost';"
 sudo mysql -e "FLUSH PRIVILEGES;"
 
 ACCESS_LOG="/var/log/nginx/${SITE_HOST}-access.log"
